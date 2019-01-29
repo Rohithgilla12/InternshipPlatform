@@ -20,8 +20,8 @@ class Intern(models.Model):
     dateAdded = models.DateField(auto_now_add=True)
     deadLine = models.CharField(max_length=50)
     duration = models.CharField(max_length=30)
-    studentsEnrolled= models.CharField(max_length=200)
-    studentsApproved= models.CharField(max_length=200)
+    studentsEnrolled= models.CharField(max_length=200,default='')
+    studentsApproved= models.CharField(max_length=200,default='')
 
 
     def __str__(self):

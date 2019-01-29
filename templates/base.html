@@ -10,8 +10,14 @@
      <!-- Compiled and minified CSS -->
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
     <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <link href="https://fonts.googleapis.com/css?family=Scada" rel="stylesheet">
     <title>{% block title %} Intership Portal {% endblock %}</title>
     <style>
+
+      h1,h2,h3,h4,h5,h6,p,li{
+        font-family: 'Scada', sans-serif;
+        word-wrap: break-word;
+      }
       .loginImg{
         width:"100%";
       },
@@ -24,20 +30,26 @@
         height: 220pt;        
         
       }
+      .logo{
+        width:100pt;
+      }
     }
     </style>
   </head>
   <body>
     <nav>
-      <div class="nav-wrapper " style=" background-color: rgb(53, 88, 118); ">
-        <a href="/" class="brand-logo">Internship Portal</a>
+      <div class="nav-wrapper " style=" background-color: rgb(53, 88, 118); ">        
+        <a href="/" class="brand-logo"><img src="https://www.mahindraecolecentrale.edu.in/img/footer-logo.png" class="logo" alt=""></a>
+        
         <ul id="nav-mobile" class="right hide-on-med-and-down">
           {% if user.is_authenticated %}
           <li><a href="/create">Create</a></li>
           <li><a href="/logout">Logout</a></li>
+          <li><a href="/profile">Profile</a></li>
           {% else %}
             <li><a href="/login">Login</a></li>
           {% endif %}
+          <li><a href="/students">Student Sheet</a></li>
         </ul>
       </div>
     </nav>

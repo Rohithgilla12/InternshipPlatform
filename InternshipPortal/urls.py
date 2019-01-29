@@ -29,4 +29,6 @@ urlpatterns = [
     url(r'^create/$', create, name='create'),
     path('interns/<int:pk>/', intern_detail_view, name='intern_detail_view'),
     path('interns/<int:pk>/edit/', intern_edit, name='intern_edit'),
+    path('students', allStudList, name='allStud'),
+    path('profile', myInterns, name='myProfile'),
 ]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

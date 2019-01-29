@@ -53,13 +53,13 @@ class InternForm(forms.ModelForm):
             'placeholder':"List of students who already enrolled (ignored if None)",
             "class":"input-field"
         }        
-    ),label='Students Enrolled')
+    ),label='Students Enrolled',required=False)
     studentsApproved = forms.CharField(widget=forms.TextInput(
         attrs={
             'placeholder':"List of students who already approved (ignored if None)",
             "class":"input-field"
         }        
-    ),label='Students Approved')
+    ),label='Students Approved',required=False)
     preReq = forms.CharField(widget=forms.TextInput(
         attrs={
             # 'placeholder':"List of pre requisites",
@@ -77,7 +77,7 @@ class InternForm(forms.ModelForm):
     stiphend = forms.CharField(widget=forms.TextInput(
         attrs=
         {
-            'placeholder':'Stiphend',
+            'placeholder':'Stipend',
             'class':'input-field'
         }
     ))

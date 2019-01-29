@@ -5,10 +5,17 @@ from .models import Intern
 from .forms import *
 from django.contrib.auth.models import User
 
+studentMap = {
+    "16XJ1A0515":"Rohith Gilla",
+    "16XJ1A504":"Abhinav Reddy",
+    "16XJ1A503":"Abhimanyu Bellam",
+    "16XJ1A0210":"Vishal Reddy",
+}
+
 # Create your views here.
 
 def home(request):
-    qset = Intern.objects.values().order_by('dateAdded')
+    qset = Intern.objects.values().order_by('-dateAdded')
     for obj in qset:
         tempUser = (User.objects.filter(id=obj['user_id']))[0]
         fulName = tempUser.first_name + " "+tempUser.last_name
@@ -60,3 +67,49 @@ def intern_edit(request, pk):
         return render(request, 'edit.html', {'form': form})
     else:
         return render(request,'forbidden.html',{})
+
+
+def allStudList(request):
+    studentsEnrolled= Intern.objects.all().values('id','title','studentsEnrolled')
+    studentsApproved= Intern.objects.all().values('id','title','studentsApproved')      
+    for obj in studentsEnrolled:
+        reqString = obj['studentsEnrolled']
+        print(reqString)
+        reqList = reqString.split(',')
+        names=''        
+        for name in reqList:
+            try:
+                names+=studentMap[name.replace(' ','')]+", "        
+            except:
+                pass
+        obj.update({
+            "retrivedName":names[:-2]
+        })
+    for obj in studentsApproved:
+        reqString = obj['studentsApproved']
+        reqList = reqString.split(',')
+        names=''
+        for name in reqList:
+            try:
+                names+=studentMap[name.replace(' ','')]+", "        
+            except:
+                pass
+        obj.update({
+            "retrivedName":names[:-2]
+        })
+    context = {
+        "studentsEnrolled":studentsEnrolled,
+        "studentsApproved":studentsApproved
+    }
+    return render(request,'studlist.html',context)
+
+def myInterns(request):
+    pk=request.user.id
+    myInters=Intern.objects.all().filter(user_id=pk)
+    tempUser = (User.objects.filter(id=pk))[0]
+    fulName = tempUser.first_name + " "+tempUser.last_name
+    context={
+        "qset":myInters
+    }
+    return render(request,'profile.html',context)
+

@@ -10,7 +10,7 @@
     <div class="col s3">
         <h5>Faculty Incharge</h5>
             <p>Name : {{user.first_name}} {{user.last_name}}</p>
-            <p>Email : {{user.email}}</p>
+            <p>Email : <a href="mailto:{{user.email}}?Subject=This%20Mail%20%is%20regarding%20{{object.title}}" target="_top">{{user.email}}</a></p>        
             <p>Location : {{user.profile.location}}</p>
 
             <br>
