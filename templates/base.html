@@ -14,7 +14,14 @@
     <title>{% block title %} Intership Portal {% endblock %}</title>
     <style>
 
-
+       body {
+     display: flex;
+     min-height: 100vh;
+     flex-direction: column;
+     }
+      main {
+          flex: 1 0 auto;
+      }
       .footer-copyright{
         text-align:center;
       }
@@ -45,13 +52,15 @@
   </head>
   <body>
 
-    {% include "navbar.html" %}      
+    {% include "navbar.html" %}     
+    <main> 
     <div class="container">
 
         {% block content %}
         {% endblock content %}
     </div>
   </div>
+  </main> 
   </div>
   {% include "footer.html" %}
   {% include "script.html" %}
