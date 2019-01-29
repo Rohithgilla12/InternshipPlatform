@@ -1,0 +1,59 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<div class="col-md-12">
+<input type="text" class="datepicker">
+{% comment %} {{qset}} {% endcomment %}
+{% if user.is_authenticated %}
+      {% comment %} {{user.profile.location}} is logged in {% endcomment %}
+      <h4>Welcome <strong>{{user.first_name}} {{user.last_name}}<strong></h4>
+      <br>
+      {% else %}
+      <p>Hey Student, check the intern opprtunities avaiable to you.</p>
+      {% endif %}
+    <div style="background-color:#eee">
+    {% for intern in qset %}
+        {% if forloop.first %} <div class="row">{%endif%}
+        <div class="col s6">
+                  <div class="card">
+        <div class="card-content">
+          <span class="card-title"><a href="{% url 'intern_detail_view' pk=intern.id %}">{{ intern.title }}</a></span>
+          <p>{{intern.description|truncatewords:50}} </p>
+
+          <p style="color:#B83227">Deadline: <strong>{{intern.deadLine}}</strong></p>
+          <p>Duration : <strong>{{intern.duration}}</strong></p>
+          <p><strong>Date Added </strong>{{intern.dateAdded}}</p>
+          <p>Contact: <strong>{{intern.fullName}}</strong></p>
+        </div>
+        <div class="card-action">
+          <a href="{% url 'intern_detail_view' pk=intern.id %}">Know More</a>          
+        </div>
+      </div>
+      </div>    
+    {% if forloop.counter|divisibleby:2 %}</div>  <div class="row">{% endif %}  
+    {% if forloop.last %} </div> {% endif %}
+    {% endfor %}
+    </div>
+                {% comment %} <div class="card card-default">
+    <div class="card-header"><a href="{% url 'intern_detail_view' pk=intern.id %}">{{ intern.title }}</a></div>
+    <div class="card-body">
+        <div class="card-left">
+        </div>
+        <div class="card-right">
+        <h1></h1>
+        <h1>{{user.title}}</h1>
+        <p><strong>Description </strong>{{intern.description}} </p>
+        <p><strong>Deadline </strong>{{intern.deadLine}} </p>
+        <p><strong>Duration </strong>{{intern.duration}} </p>
+        <p><strong>Date Added </strong>{{intern.dateAdded}}</p>
+        </div>
+    </div>
+    <div class="card-footer">
+        For further details contact: <strong>{{intern.fullName}}</strong>
+    </div>
+    <br>
+    </div>
+        </div> {% endcomment %}
+    {% comment %} {% endfor %} {% endcomment %}
+    {% comment %} {{qset}} {% endcomment %}
+{% endblock %}

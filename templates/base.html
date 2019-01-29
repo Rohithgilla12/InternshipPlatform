@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="en">
+  <head>
+    <!-- Required meta tags -->
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1, shrink-to-fit=no">
+
+    <!-- Bootstrap CSS -->
+    {% comment %} <link rel="stylesheet" href="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/css/bootstrap.min.css"> {% endcomment %}
+     <!-- Compiled and minified CSS -->
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/css/materialize.min.css">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <title>{% block title %} Intership Portal {% endblock %}</title>
+    <style>
+      .loginImg{
+        width:"100%";
+      },
+      .login{
+        background-image:url("https://lh3.googleusercontent.com/IQoc0Nx-DiygvKSq7LEdGMm4o9C0S26FuQQnmQ7SkYOsf47q17PMoyhuyxe-pMxuEG7JBgjSDYLyQcBcFB735fS6xE3UaMKmkm7lwRLd6OpGCmiESldYAP_T8PLSgPHbgo9NKrTR90JTccFGMZNE_Hxx0JtiS02YQslLTn8U_qFNNcQzECC4hS7Rl9_Zji1fJyLHT2XGQxjSbcRwIu7PlRmSnZur6OJTsAU8ZnTkDyDrl9F1-f3kpNsVZ5jhG8SmxJlbeNGBK_0-CPAWVr80GsRPbgFolTYpFYrTMY0jSCcE49qZ413C_il4ef4YjJTcIKB7l1ZT-5ASV9yJEfQPr6v3v9FsFto3TICQJPziRMYya_JFPRy6wQmq-9V3luk5OZfC7q-TJSiypknmga9NhR9ZexP0oWl17H6tLm2_I6NvQP4MuIt9U5HTYXX84WDQs0-vfHNqO3A4eb3OMo38ty9zYXWf0JkPay6bWrqeW34hig_VnlDbhJZzYdrNoxwHtEF4lFFyCblg_KW0jbBKVznVVc6RSJFj6ogHBeZKXXzxLjozaAKCed0dJivaCEem5AofwNCEmPCRKwPzhf5QJ4r9D3irbAbV-EQUoBDWmdwlGd14HRHq8FZSJxkdmmaPDQi4pBUvElTIHjIe2G15tmKW=w730-h322-no");
+        background-position: center;
+        background-repeat: no-repeat;
+        background-size: cover;
+        width: 100%;
+        height: 220pt;        
+        
+      }
+    }
+    </style>
+  </head>
+  <body>
+    <nav>
+      <div class="nav-wrapper " style=" background-color: rgb(53, 88, 118); ">
+        <a href="/" class="brand-logo">Internship Portal</a>
+        <ul id="nav-mobile" class="right hide-on-med-and-down">
+          {% if user.is_authenticated %}
+          <li><a href="/create">Create</a></li>
+          <li><a href="/logout">Logout</a></li>
+          {% else %}
+            <li><a href="/login">Login</a></li>
+          {% endif %}
+        </ul>
+      </div>
+    </nav>
+        
+        
+    <div class="container">
+
+        {% block content %}
+        {% endblock content %}
+    </div>
+  
+    <!-- Optional JavaScript -->
+    <!-- jQuery first, then Popper.js, then Bootstrap JS -->
+    <script src="https://code.jquery.com/jquery-3.3.1.slim.min.js" integrity="sha384-q8i/X+965DzO0rT7abK41JStQIAqVgRVzpbzo5smXKp4YfRvH+8abtTE1Pi6jizo" crossorigin="anonymous"></script>
+      <!-- Compiled and minified JavaScript -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/materialize/1.0.0/js/materialize.min.js"></script>
+            
+    {% comment %} <script src="https://cdnjs.cloudflare.com/ajax/libs/popper.js/1.14.3/umd/popper.min.js"></script>
+    <script src="https://stackpath.bootstrapcdn.com/bootstrap/4.1.1/js/bootstrap.min.js"></script> {% endcomment %}
+    <script>
+      document.addEventListener('DOMContentLoaded', function() {
+    var elems = document.querySelectorAll('.datepicker');
+    var instances = M.Datepicker.init(elems, options);
+  });
+
+  // Or with jQuery
+
+  $(document).ready(function(){
+    $('.datepicker').datepicker();
+  });</script>
+  </body>
+</html>

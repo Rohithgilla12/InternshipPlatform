@@ -1,0 +1,37 @@
+{% extends 'base.html' %}
+
+{% block content %}
+<br>
+<br>
+    <div class="row">
+    <div class="col s4">
+        <img src='{{ MEDIA_URL }}{{ user.profile.profilePhoto }}'>
+    </div>
+    <div class="col s3">
+        <h5>Faculty Incharge</h5>
+            <p>Name : {{user.first_name}} {{user.last_name}}</p>
+            <p>Email : {{user.email}}</p>
+            <p>Location : {{user.profile.location}}</p>
+
+            <br>
+
+            {% if request.user.is_authenticated %}
+            <a class="waves-effect waves-light btn" href="{% url 'intern_edit' pk=object.id %}"><i class="material-icons">border_color</i>  Edit</a>
+            {% endif %}
+    </div>
+    <div class="col s5">  
+        <h4>Title : {{object.title}}</h4>
+        <p>Description : {{object.description}}</p>
+        <p>Pre Requsities : <strong>{{object.preReq}}</strong></p>
+        <p>Duration : <strong>{{object.duration}}</strong></p>
+        <p>Eligibility : <strong>{{object.eligibility}}</strong></p>
+        <p>Stiphend : <strong>{{object.stiphend}}</strong></p>
+        <p>Students Enrolled : <strong>{{object.studentsEnrolled}}</strong></p>
+        <p>Students Approved : <strong>{{object.studentsApproved}}</strong></p>
+        <p>Eligibile : <strong>{{object.eligibility}}</strong></p>
+        <p>Deadline : <strong>{{object.deadLine}}</strong></p>
+
+        
+    </div>
+    </div>
+{% endblock %}
