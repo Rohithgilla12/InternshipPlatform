@@ -30,6 +30,7 @@ class Intern(models.Model):
 class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)    
     location = models.CharField(max_length=100)
+    leisureTime = models.CharField(max_length=100)
     profilePhoto=models.FileField(upload_to='images/', null=True, verbose_name="")
 
 @receiver(post_save, sender=User)
