@@ -4,6 +4,7 @@ from django.shortcuts import render, redirect,get_object_or_404
 from .models import Intern
 from .forms import *
 from django.contrib.auth.models import User
+from .temp import *
 
 studentMap = {
     "16XJ1A0515":"Rohith Gilla",
@@ -73,30 +74,39 @@ def allStudList(request):
     studentsEnrolled= Intern.objects.all().values('id','title','studentsEnrolled')
     studentsApproved= Intern.objects.all().values('id','title','studentsApproved')      
     for obj in studentsEnrolled:
-        reqString = obj['studentsEnrolled']
-        print(reqString)
+        reqString = obj['studentsEnrolled']        
         reqList = reqString.split(',')
-        names=''        
+        names=''
+        print(reqList)
         for name in reqList:
-            try:
-                names+=studentMap[name.replace(' ','')]+", "        
+            try:            
+                names+=search2(name)+', '
             except:
                 pass
+        print(names)
         obj.update({
             "retrivedName":names[:-2]
         })
+    #     for name in reqList:
+    #         print(name,search(name.replace(' ','')),"Found!")
+    #         try:
+    #             names+=search(name.replace(' ',''))+", "
+    #             print(names)
+    #         except:
+    #             pass
+
     for obj in studentsApproved:
         reqString = obj['studentsApproved']
         reqList = reqString.split(',')
         names=''
         for name in reqList:
-            try:
-                names+=studentMap[name.replace(' ','')]+", "        
+            try:            
+                names+=search2(name)+', '
             except:
-                pass
-        obj.update({
-            "retrivedName":names[:-2]
-        })
+                pass                
+            obj.update({
+                "retrivedName":names[:-2]
+            })
     context = {
         "studentsEnrolled":studentsEnrolled,
         "studentsApproved":studentsApproved
