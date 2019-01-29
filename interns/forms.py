@@ -32,8 +32,8 @@ class InternForm(forms.ModelForm):
     ),label='Place/ Organisation')
     deadLine = forms.CharField(widget=forms.TextInput(
         attrs={
-            'placeholder':"Deadline (in words)",
-            "class":"input-field"
+            'placeholder':"Deadline",
+            "class":"datepicker"
         }        
     ),label='Deadline')
     duration = forms.CharField(widget=forms.TextInput(
@@ -70,7 +70,8 @@ class InternForm(forms.ModelForm):
         attrs=
         {
             'placeholder':"Description",
-            "class":"materialize-textarea"
+            "class":"materialize-textarea",
+            'id':"textarea1"
         }
         ), label='Description')
 

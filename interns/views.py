@@ -77,36 +77,43 @@ def allStudList(request):
         reqString = obj['studentsEnrolled']        
         reqList = reqString.split(',')
         names=''
+        branches=''
+        years=''
         print(reqList)
         for name in reqList:
             try:            
-                names+=search2(name)+', '
+                names+=search2(name)[0]+', '
+                branches+=search2(name)[2]+', '
+                years+=search2(name)[1]+', '
             except:
                 pass
         print(names)
         obj.update({
-            "retrivedName":names[:-2]
+            "retrivedName":names[:-2],
+            "branches": branches[:-2],
+            "years":years[:-2]
         })
-    #     for name in reqList:
-    #         print(name,search(name.replace(' ','')),"Found!")
-    #         try:
-    #             names+=search(name.replace(' ',''))+", "
-    #             print(names)
-    #         except:
-    #             pass
 
     for obj in studentsApproved:
         reqString = obj['studentsApproved']
         reqList = reqString.split(',')
         names=''
-        for name in reqList:
+        years=''
+        branches=''
+        for name in reqList:            
             try:            
-                names+=search2(name)+', '
+                years+=search2(name)[1]+', '
+                names+=search2(name)[0]+', '
+                branches+=search2(name)[2]+', '
+                # years+=search2(name)[1]+', '
+                
             except:
-                pass                
-            obj.update({
-                "retrivedName":names[:-2]
-            })
+                pass        
+        obj.update({
+            "retrivedName":names[:-2],
+            "branches": branches[:-2],
+            "years":years[:-2]
+        })
     context = {
         "studentsEnrolled":studentsEnrolled,
         "studentsApproved":studentsApproved

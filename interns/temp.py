@@ -9,8 +9,30 @@ def search2(query):
     query = query.replace(",","")
     query1 = query+"_name"
     query2 = query+"_email"
+    query3 = query + "_enrolled"
+    query4 =  query + "_verified"
     # query2 = query2.replace(" ","")
-    return dictionary[query1]
-
-# print(search("16XJ1A0504"))
-print(search2(" 16xj1a0210,  "))
+    name = dictionary[query1]
+    email = dictionary[query2].replace(" ","")
+    q = list(query)
+    year_id = q[0]+q[1]
+    # print("year id : ",year_id)
+    
+    if year_id=='16' :
+        year = 3
+    if year_id=='17' :
+        year = 2
+    if year_id=='18' :
+        year = 1
+    if year_id=='15' :
+        year = 4
+        
+    if q[7]=='2' :
+         branch = "EEE"
+    if q[7]=='1' :
+         branch = "CE"
+    if q[7]=='3' :
+         branch = "ME"
+    if q[7]=='5' :
+         branch = "CSE"
+    return name,str(year),branch,email
