@@ -1,0 +1,28 @@
+    <footer class="page-footer no-padding no-padding-bottom" style=" background-color: rgb(53, 88, 118); ">          
+    <div class="row no-padding no-padding-bottom">
+        <div class="col l6 s12">
+        <h5 class="white-text">Internship Portal</h5>
+        <p class="grey-text text-lighten-4">It always seems impossible until it's done.</p>
+        <p class="grey-text text-lighten-4">Only I can change my life. No one can do it for me. </p>
+        </div>
+        <div class="col l4 offset-l2 s12">
+        <ul style="color:white">
+          {% if user.is_authenticated %}
+          <li><a href="/create">Create</a></li>
+          <li><a href="/logout">Logout</a></li>
+          <li><a href="/profile">Profile</a></li>
+          {% else %}
+            <li><a href="/login">Login</a></li>
+          {% endif %}
+          <li><a href="/students">Student Sheet</a></li>
+        </ul>
+        </div>
+    </div>
+    </div>
+    <div class="footer-copyright" >
+            <div class="container" style="align-items:center">
+             <i class="tiny material-icons" style="color:black">copyright</i> Designed and Developed with <i class="tiny material-icons" style="color:red">favorite</i> by <a href="https://github.com/orgs/lucandy/">LuCandy</a> 
+            <a class="grey-text text-lighten-4 right" href="/"><i class="material-icons">arrow_drop_up</i> </a>
+            </div>
+    </div>
+</footer>

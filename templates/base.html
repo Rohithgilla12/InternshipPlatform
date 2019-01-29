@@ -14,6 +14,10 @@
     <title>{% block title %} Intership Portal {% endblock %}</title>
     <style>
 
+
+      .footer-copyright{
+        text-align:center;
+      }
       h1,h2,h3,h4,h5,h6,p,li{
         font-family: 'Scada', sans-serif;
         word-wrap: break-word;
@@ -33,6 +37,9 @@
       .logo{
         width:100pt;
       }
+      .no-padding-bottom {
+        padding:0px !important
+        }
     }
     </style>
   </head>
@@ -44,7 +51,9 @@
         {% block content %}
         {% endblock content %}
     </div>
-  
+  </div>
+  </div>
+  {% include "footer.html" %}
   {% include "script.html" %}
   </body>
 </html>
