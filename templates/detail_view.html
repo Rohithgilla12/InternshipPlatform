@@ -4,23 +4,13 @@
 <br>
 <br>
     <div class="row">
-    <div class="col s4">
+    {% comment %} <div class="col s4">
         <img src='{{ MEDIA_URL }}{{ user.profile.profilePhoto }}'>
-    </div>
-    <div class="col s3">
-        <h5>Faculty Incharge</h5>
-            <p><i class="tiny material-icons">contacts</i> Name: {{user.first_name}} {{user.last_name}}</p>
-            <p><i class="tiny material-icons">email</i> Email : <a href="mailto:{{user.email}}?Subject=This%20Mail%20%is%20regarding%20{{object.title}}" target="_top">{{user.email}}</a></p>        
-            <p><i class="tiny material-icons">location_on</i> Location : {{user.profile.location}}</p>
-            <p><i class="tiny material-icons">access_time</i> Meeting Time : <u>{{user.profile.leisureTime}}</p></u>
+    </div> {% endcomment %}
+    <div class="col s6">
 
-            <br>
-
-            {% if request.user.is_authenticated %}
-            <a class="waves-effect waves-light btn" href="{% url 'intern_edit' pk=object.id %}"><i class="material-icons">border_color</i>  Edit</a>
-            {% endif %}
     </div>
-    <div class="col s5">  
+    <div class="col s12">  
         <h4>Title : {{object.title}}</h4>
         <p>Description : {{object.description}}</p>
         <p>Pre Requsities : <strong>{{object.preReq}}</strong></p>
@@ -32,7 +22,17 @@
         <p>Deadline : <strong>{{object.deadLine}}</strong></p>
         <p>Date Added : <strong>{{object.dateAdded}}</strong></p>
 
-        
+                <h5>Faculty Incharge</h5>
+            <p><i class="tiny material-icons">contacts</i> Name: {{user.first_name}} {{user.last_name}}</p>
+            <p><i class="tiny material-icons">email</i> Email : <a href="mailto:{{user.email}}?Subject=This%20Mail%20%is%20regarding%20{{object.title}}" target="_top">{{user.email}}</a></p>        
+            <p><i class="tiny material-icons">location_on</i> Location : {{user.profile.location}}</p>
+            <p><i class="tiny material-icons">access_time</i> Meeting Time : <u>{{user.profile.leisureTime}}</p></u>
+
+            <br>
+
+            {% if request.user.is_authenticated %}
+            <a class="waves-effect waves-light btn" href="{% url 'intern_edit' pk=object.id %}"><i class="material-icons">border_color</i>  Edit</a>
+            {% endif %}
     </div>
     </div>
 {% endblock %}
