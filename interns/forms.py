@@ -10,7 +10,10 @@ INTERN_CHOICES= [
     ('MECH', 'MECH'),
     ('Management', 'Management'),
     ('Humanities', 'Humanities'),
+    ('Media', 'Media'),
+    ('Finance', 'Finance')
     ]
+
 class CustomUserCreationForm(UserCreationForm):
     
     class Meta(UserCreationForm):

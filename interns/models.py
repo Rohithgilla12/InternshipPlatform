@@ -12,8 +12,9 @@ INTERN_CHOICES= [
     ('EEE', 'EEE'),
     ('CIVIL', 'CIVIL'),
     ('MECH', 'MECH'),
-    ('Management', 'Management'),
-    ('Humanities', 'Humanities'),
+    ('Management', 'Management'),    
+    ('Media', 'Media'),
+    ('Finance', 'Finance')
     ]
 
 

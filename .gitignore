@@ -93,3 +93,7 @@ dbBackup/
 .vscode/
 
 faculty/
+
+Icons/
+
+*.zip
