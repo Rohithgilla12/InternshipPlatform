@@ -7,10 +7,20 @@ from datetime import date
 from django.utils import timezone
 
 # Create your models here.
+INTERN_CHOICES= [
+    ('CSE', 'CSE'),
+    ('EEE', 'EEE'),
+    ('CIVIL', 'CIVIL'),
+    ('MECH', 'MECH'),
+    ('Management', 'Management'),
+    ('Humanities', 'Humanities'),
+    ]
+
 
 class Intern(models.Model):
     user = models.ForeignKey(settings.AUTH_USER_MODEL, on_delete=models.DO_NOTHING)
     title = models.CharField(max_length=150)
+    discipline=models.CharField(max_length=10)
     preReq = models.CharField(max_length=200)
     description = models.CharField(max_length=1000)
     place = models.CharField(max_length=100)
@@ -22,6 +32,7 @@ class Intern(models.Model):
     duration = models.CharField(max_length=30)
     studentsEnrolled= models.CharField(max_length=200,default='')
     studentsApproved= models.CharField(max_length=200,default='')
+
 
 
     def __str__(self):

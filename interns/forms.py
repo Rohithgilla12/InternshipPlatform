@@ -3,6 +3,14 @@ from .models import Intern
 from django.contrib.auth.forms import UserCreationForm, UserChangeForm
 from .models import *
 
+INTERN_CHOICES= [
+    ('CSE', 'CSE'),
+    ('EEE', 'EEE'),
+    ('CIVIL', 'CIVIL'),
+    ('MECH', 'MECH'),
+    ('Management', 'Management'),
+    ('Humanities', 'Humanities'),
+    ]
 class CustomUserCreationForm(UserCreationForm):
     
     class Meta(UserCreationForm):
@@ -24,6 +32,13 @@ class InternForm(forms.ModelForm):
             "class":"input-field"
         }        
     ),label='Title')
+    discipline=forms.ChoiceField(choices = INTERN_CHOICES, label="Discipline", initial='', widget=forms.Select(
+        attrs={
+            "class":"dropdown-button btn-flat",
+            "style":"color:black"
+        }
+    ), required=True)
+                
     place = forms.CharField(widget=forms.TextInput(
         attrs={
             'placeholder':"Place of the Internship",
@@ -84,4 +99,4 @@ class InternForm(forms.ModelForm):
     ))
     class Meta:
         model = Intern
-        fields = ("title","preReq","description","place","deadLine","duration","studentsApproved","studentsEnrolled","eligibility","stiphend")
+        fields = ("title","discipline","preReq","description","place","deadLine","duration","studentsApproved","studentsEnrolled","eligibility","stiphend")
