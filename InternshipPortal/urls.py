@@ -31,4 +31,5 @@ urlpatterns = [
     path('interns/<int:pk>/edit/', intern_edit, name='intern_edit'),
     path('students', allStudList, name='allStud'),
     path('profile', myInterns, name='myProfile'),
+    path(r'interns/category/<catName>/',dispSpecific,name='specific')
 ]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)

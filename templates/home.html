@@ -11,6 +11,20 @@
       {% else %}
       <p>Hey Student, check the intern opprtunities avaiable to you.</p>
       {% endif %}
+
+        <div class="row">
+            <div class="col s3"><a href="/interns/category/CIVIL/"><img class="responsive-img" src="https://github.com/Rohithgilla12/mecface2019.github.io/blob/master/img/Icons/civil.png?raw=true" alt="Civil Boys"></a></div>
+            <div class="col s3"><a href="/interns/category/CSE/"><img class="responsive-img" src="https://github.com/Rohithgilla12/mecface2019.github.io/blob/master/img/Icons/cse.png?raw=true" alt="CSE"></a></div>
+            <div class="col s3"><a href="/interns/category/EEE"><img class="responsive-img" src="https://github.com/Rohithgilla12/mecface2019.github.io/blob/master/img/Icons/eee.png?raw=true" alt="EEE"></a></div>
+            <div class="col s3"><a href="/interns/category/MECH"><img class="responsive-img" src="https://github.com/Rohithgilla12/mecface2019.github.io/blob/master/img/Icons/mech.png?raw=true" alt="MECH"></a></div>
+        </div> 
+
+        <div class="row">
+            <div class="col s4"> <a href="/interns/category/Management/">Management</a> </div>
+            <div class="col s4"><a href="/interns/category/Humanities/">Humanities</a></div>
+            <div class="col s4"><a href="/interns/category/all/">View All</a></div>
+        </div>
+
     <div style="background-color:#eee">
     {% for intern in qset %}
         {% if forloop.first %} <div class="row">{%endif%}

@@ -130,3 +130,13 @@ def myInterns(request):
     }
     return render(request,'profile.html',context)
 
+def dispSpecific(request,*args,**kwargs):
+    catName=kwargs["catName"]
+    if catName=="all":
+        objects=Intern.objects.all()
+    else:
+        objects=Intern.objects.all().filter(discipline=catName)
+    context={
+        "obj":objects
+    }
+    return render(request,'specific.html',context)

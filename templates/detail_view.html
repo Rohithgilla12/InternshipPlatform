@@ -3,15 +3,21 @@
 {% block content %}
 <br>
 <br>
+
     <div class="row">
-    {% comment %} <div class="col s4">
-        <img src='{{ MEDIA_URL }}{{ user.profile.profilePhoto }}'>
-    </div> {% endcomment %}
+        <div class="col s3"><img src="" alt=""></div>
+        <div class="col s3"><img src="" alt=""></div>
+        <div class="col s3"><img src="" alt=""></div>
+        <div class="col s3"><img src="" alt=""></div>
+    </div>
+
+
+    <div class="row">
     <div class="col s6">
 
     </div>
     <div class="col s12">  
-        <h4>Title : {{object.title}}</h4>
+        <h4>Title : {{object.title}}</h4><div class="chip">{{object.discipline}}<i class="close material-icons">close</i></div>
         <p>Description : {{object.description}}</p>
         <p>Pre Requsities : <strong>{{object.preReq}}</strong></p>
         <p>Duration : <strong>{{object.duration}}</strong></p>
