@@ -14,7 +14,7 @@ INTERN_CHOICES= [
     ('MECH', 'MECH'),
     ('Management', 'Management'),    
     ('Media', 'Media'),
-    ('Finance', 'Finance')
+    ('Sciences', 'Sciences')
     ]
 
 

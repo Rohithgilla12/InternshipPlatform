@@ -9,7 +9,7 @@
       <h4>Welcome <strong>{{user.first_name}} {{user.last_name}}<strong></h4>
       <br>
       {% else %}
-      <p>Hey Student, check the intern opprtunities avaiable to you.</p>
+      {% comment %} <p>Hey Student, check the intern opprtunities avaiable to you.</p> {% endcomment %}
       {% endif %}
 
         <div class="row">
@@ -26,20 +26,20 @@
             <div class="col s3"><a href="/interns/category/Media/"><img class="responsive-img" src="https://github.com/Rohithgilla12/mecface2019.github.io/blob/master/img/Icons/media.png?raw=true" alt="Media"></a></div>            
         </div>
 
-    <div style="background-color:#eee">
+    {% comment %} <div style="background-color:#eee">
     {% for intern in qset %}
         {% if forloop.first %} <div class="row">{%endif%}
         <div class="col s12">
                   <div class="card">
-        <div class="card-content">
+        <div class="card-content"> {% endcomment %}
             
-          <span class="card-title"><a href="{% url 'intern_detail_view' pk=intern.id %}">{{ intern.title }}</a></span>
+          {% comment %} <span class="card-title"><a href="{% url 'intern_detail_view' pk=intern.id %}">{{ intern.title }}</a></span> {% endcomment %}
           {% comment %} <p>{{intern.description|truncatewords:20}} </p> {% endcomment %}
-          <p style="color:#B83227">Deadline: <strong>{{intern.deadLine}}</strong></p>
-          <p>Duration : <strong>{{intern.duration}}</strong></p>
+          {% comment %} <p style="color:#B83227">Deadline: <strong>{{intern.deadLine}}</strong></p>
+          <p>Duration : <strong>{{intern.duration}}</strong></p> {% endcomment %}
           {% comment %} <p><strong>Date Added </strong>{{intern.dateAdded}}</p> {% endcomment %}
           {% comment %} <p>Contact: <strong>{{intern.fullName}}</strong></p> {% endcomment %}
-        </div>
+        {% comment %} </div>
         <div class="card-action">
           <a href="{% url 'intern_detail_view' pk=intern.id %}">Know More</a>          
         </div>
@@ -47,7 +47,7 @@
       </div>    
     {% if forloop.counter|divisibleby:1 %}</div>  <div class="row">{% endif %}  
     {% if forloop.last %} </div> {% endif %}
-    {% endfor %}
+    {% endfor %} {% endcomment %}
     </div>
                 {% comment %} <div class="card card-default">
     <div class="card-header"><a href="{% url 'intern_detail_view' pk=intern.id %}">{{ intern.title }}</a></div>

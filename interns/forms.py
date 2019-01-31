@@ -11,7 +11,7 @@ INTERN_CHOICES= [
     ('Management', 'Management'),
     ('Humanities', 'Humanities'),
     ('Media', 'Media'),
-    ('Finance', 'Finance')
+    ('Sciences', 'Sciences')
     ]
 
 class CustomUserCreationForm(UserCreationForm):
