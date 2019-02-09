@@ -1,5 +1,5 @@
 from django.db import models
-from django.contrib.auth.models import User
+from django.contrib.auth.models import User,AbstractUser
 from django.db.models.signals import post_save
 from django.dispatch import receiver
 from django.conf import settings
@@ -44,6 +44,13 @@ class Profile(models.Model):
     location = models.CharField(max_length=100)
     leisureTime = models.CharField(max_length=100)
     profilePhoto=models.FileField(upload_to='images/', null=True, verbose_name="")
+    
+    def __str__(self):  # __unicode__ for Python 2
+        return str(self.user)
+    class Meta:
+        permissions = (("student", "Student"),
+                    ("professor", "Professor"),
+                    ("admin", "Admin"))
 
 @receiver(post_save, sender=User)
 def create_user_profile(sender, instance, created, **kwargs):
@@ -53,3 +60,5 @@ def create_user_profile(sender, instance, created, **kwargs):
 @receiver(post_save, sender=User)
 def save_user_profile(sender, instance, **kwargs):
     instance.profile.save()
+
+
