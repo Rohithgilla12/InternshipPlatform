@@ -43,7 +43,7 @@ class Profile(models.Model):
     user = models.OneToOneField(User, on_delete=models.CASCADE)    
     location = models.CharField(max_length=100)
     leisureTime = models.CharField(max_length=100)
-    profilePhoto=models.FileField(upload_to='images/', null=True, verbose_name="")
+    # profilePhoto=models.FileField(upload_to='images/', null=True, verbose_name="")
     
     def __str__(self):  # __unicode__ for Python 2
         return str(self.user)

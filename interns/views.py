@@ -151,3 +151,15 @@ def dispSpecific(request,*args,**kwargs):
 # new_group.permissions.add(permission)
 # permission = Permission.objects.create(codename ='professor', name ='Professor', content_type = ct)
 # new_group.permissions.add(permission)
+
+
+# from django.contrib.auth.models import Group
+# from django.contrib.auth.models import User
+# user = User.objects.create_user('foo',password='bar')
+# user.first_name="Fucked up"
+# user.last_name="Beyond Login"
+# user.email="foobar@gilmail.com"
+# user.groups.add(students)
+# user.profile.leisureTime="Peaks"
+# user.profile.location="Facult office"
+# user.save()
