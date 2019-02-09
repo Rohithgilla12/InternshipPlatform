@@ -37,8 +37,10 @@
             <br>
 
             {% if request.user.is_authenticated %}
-                    {% if request.user.groups.all.0.name == "Students" %}                        
-                        <a class="applyBtn waves-effect waves-light btn" href="{% url 'intern_edit' pk=object.id %}"><i class="material-icons right">check</i>Apply Now!</a>
+                    {% if request.user.groups.all.0.name == "Students" %} 
+                    <form action="#" method="post">{% csrf_token %}
+                        <input type="submit" class="applyBtn waves-effect waves-light btn" name= {{object.id}} value="Apply Now!">
+                    </form>                                               
                     {% endif %}
                     {% if request.user.groups.all.0.name == "Professor" %}
                         <a class="waves-effect waves-light btn" href="{% url 'intern_edit' pk=object.id %}"><i class="material-icons right">border_color</i>  Edit</a>

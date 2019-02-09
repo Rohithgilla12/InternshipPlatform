@@ -49,10 +49,16 @@ def create(request):
 
 
 def intern_detail_view(request, *args,**kwargs):
-    print(request.user.is_authenticated)
     pk=kwargs['pk']
-    obj = Intern.objects.get(id=pk)  # GET from database
-    print(obj)
+    if request.method == 'POST':
+        obj = Intern.objects.get(id=pk)
+        if (str(request.user.username) not in obj.studentsEnrolled):
+            obj.studentsEnrolled+=str(request.user.username)+","
+            obj.save()
+            print("Done!")        
+        else:
+            print("Dude already enrolled")
+    obj = Intern.objects.get(id=pk)  # GET from database    
     tempUser = (User.objects.filter(id=obj.user_id))
     context = {
         "object": obj,
