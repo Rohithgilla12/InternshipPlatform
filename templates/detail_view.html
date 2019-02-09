@@ -4,11 +4,15 @@
 <br>
 <br>
 
-    <div class="row">
-        <div class="col s3"><img src="" alt=""></div>
-        <div class="col s3"><img src="" alt=""></div>
-        <div class="col s3"><img src="" alt=""></div>
-        <div class="col s3"><img src="" alt=""></div>
+    <div class="row">        
+        {% if message == "Done!" %}
+            <h4 style="color:#26ae60">{{message}}, Enrollment is successful</h4>        
+        {% endif %}
+
+        {% if message == "Repeated" %}
+            <h4 style="color:#B83227">{{message}}, Enrollment is done already</h4>
+        {% endif %}
+        <p>You are currently enrolled in the following {{appliedInterns}} internships</p>
     </div>
 
 

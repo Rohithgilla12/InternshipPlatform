@@ -50,19 +50,28 @@ def create(request):
 
 def intern_detail_view(request, *args,**kwargs):
     pk=kwargs['pk']
+    message=""
+    obj = Intern.objects.get(id=pk)  # GET from database  
+    allInterns = Intern.objects.all()
+    userNumber = str(request.user.username)
+    internsApplied=[]
     if request.method == 'POST':
-        obj = Intern.objects.get(id=pk)
         if (str(request.user.username) not in obj.studentsEnrolled):
             obj.studentsEnrolled+=str(request.user.username)+","
             obj.save()
-            print("Done!")        
+            message='Done!'        
         else:
-            print("Dude already enrolled")
-    obj = Intern.objects.get(id=pk)  # GET from database    
+            message='Repeated'
+        for intern in allInterns:
+            if(userNumber in intern.studentsEnrolled):
+                internsApplied.append(intern.title)
+
     tempUser = (User.objects.filter(id=obj.user_id))
     context = {
         "object": obj,
-        "user":tempUser[0]
+        "user":tempUser[0],
+        "message":message,
+        "appliedInterns":','.join(internsApplied)
     }
     return render(request, "detail_view.html", context)
 
