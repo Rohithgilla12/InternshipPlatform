@@ -20,6 +20,7 @@
             <br>
             <a href="#name"><span class="white-text name">{{request.user.first_name}} {{request.user.last_name}}</span></a>
             <a href="#email"><span class="white-text email">{{request.user.email}}</span></a>
+            <a href="#roll"><span class="white-text roll">{{request.user.username}}</span></a>
         </div></li>
             <li style="font-color:white"><a href="/students">Student Sheet</a></li>
           {% if request.user.is_authenticated %}
