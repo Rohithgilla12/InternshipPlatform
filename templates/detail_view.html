@@ -30,14 +30,19 @@
 
                 <h5>Faculty Incharge</h5>
             <p><i class="tiny material-icons">contacts</i> Name: {{user.first_name}} {{user.last_name}}</p>
-            <p><i class="tiny material-icons">email</i> Email : <a href="mailto:{{user.email}}?Subject=This%20Mail%20%is%20regarding%20{{object.title}}" target="_top">{{user.email}}</a></p>        
+            <p><i class="tiny material-icons">email</i> Email : <a href="mailto:{{user.email}}?Subject=This  Mail is regarding%20{{object.title}}" target="_top">{{user.email}}</a></p>        
             <p><i class="tiny material-icons">location_on</i> Location : {{user.profile.location}}</p>
             <p><i class="tiny material-icons">access_time</i> Meeting Time : <u>{{user.profile.leisureTime}}</p></u>
 
             <br>
 
             {% if request.user.is_authenticated %}
-            <a class="waves-effect waves-light btn" href="{% url 'intern_edit' pk=object.id %}"><i class="material-icons">border_color</i>  Edit</a>
+                    {% if request.user.groups.all.0.name == "Students" %}                        
+                        <a class="applyBtn waves-effect waves-light btn" href="{% url 'intern_edit' pk=object.id %}"><i class="material-icons right">check</i>Apply Now!</a>
+                    {% endif %}
+                    {% if request.user.groups.all.0.name == "Professor" %}
+                        <a class="waves-effect waves-light btn" href="{% url 'intern_edit' pk=object.id %}"><i class="material-icons right">border_color</i>  Edit</a>
+                    {% endif %}
             {% endif %}
     </div>
     </div>

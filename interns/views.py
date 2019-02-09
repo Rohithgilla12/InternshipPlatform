@@ -4,16 +4,23 @@ from django.shortcuts import render, redirect,get_object_or_404
 from .models import Intern
 from .forms import *
 from django.contrib.auth.models import User
+from django.contrib.auth.decorators import login_required
+from django.contrib.auth.decorators import user_passes_test
+
 from .temp import *
 
-studentMap = {
-    "16XJ1A0515":"Rohith Gilla",
-    "16XJ1A504":"Abhinav Reddy",
-    "16XJ1A503":"Abhimanyu Bellam",
-    "16XJ1A0210":"Vishal Reddy",
-}
-
 # Create your views here.
+
+
+def group_required(*group_names):
+   def in_groups(u):
+       if u.is_authenticated:
+           if bool(u.groups.filter(name__in=group_names)) | u.is_superuser:
+               return True
+       return False
+   return user_passes_test(in_groups,login_url='/')
+
+
 
 def home(request):
     qset = Intern.objects.values().order_by('-dateAdded')
@@ -26,6 +33,8 @@ def home(request):
     print(qset)
     return render(request, 'home.html',{'qset':qset})
 
+@login_required
+@group_required("Professor")
 def create(request):
     if request.method == "POST":
         form = InternForm(request.POST)
@@ -52,7 +61,7 @@ def intern_detail_view(request, *args,**kwargs):
     return render(request, "detail_view.html", context)
 
 
-
+@login_required
 def intern_edit(request, pk):
     inter = get_object_or_404(Intern, pk=pk)    
     if(request.user.id == inter.user_id):
@@ -69,7 +78,7 @@ def intern_edit(request, pk):
     else:
         return render(request,'forbidden.html',{})
 
-
+@login_required
 def allStudList(request):
     studentsEnrolled= Intern.objects.all().values('id','title','studentsEnrolled')
     studentsApproved= Intern.objects.all().values('id','title','studentsApproved')      
@@ -120,6 +129,7 @@ def allStudList(request):
     }
     return render(request,'studlist.html',context)
 
+@login_required
 def myInterns(request):
     pk=request.user.id
     myInters=Intern.objects.all().filter(user_id=pk)
