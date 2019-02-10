@@ -6,11 +6,12 @@ from .forms import *
 from django.contrib.auth.models import User
 from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
-
+import re
 from .temp import *
 
 # Create your views here.
 
+rolMatch=re.compile(r'[15,16,17,18]+[XJ,xj,Xj,xJ]+1A0[1-3,5][0-9][0-9]')
 
 def group_required(*group_names):
    def in_groups(u):
@@ -56,15 +57,36 @@ def intern_detail_view(request, *args,**kwargs):
     userNumber = str(request.user.username)
     internsApplied=[]
     if request.method == 'POST':
-        if (str(request.user.username) not in obj.studentsEnrolled):
-            obj.studentsEnrolled+=str(request.user.username)+","
-            obj.save()
-            message='Done!'        
-        else:
-            message='Repeated'
-        for intern in allInterns:
-            if(userNumber in intern.studentsEnrolled):
-                internsApplied.append(intern.title)
+        if "apply" in request.POST:
+            if (str(request.user.username) not in obj.studentsEnrolled):
+                obj.studentsEnrolled+=str(request.user.username)+","
+                obj.save()
+                message='Done!'        
+            else:
+                message='Repeated'
+            for intern in allInterns:
+                if(userNumber in intern.studentsEnrolled): 
+                    internsApplied.append(intern.title)
+        if "approve" in request.POST:
+            approvedRoll = request.POST['studentRoll']
+            if rolMatch.match(approvedRoll):
+                obj.studentsApproved +=str(approvedRoll)+','
+                print(approvedRoll,obj.studentsEnrolled, approvedRoll in obj.studentsEnrolled)
+                if approvedRoll in obj.studentsEnrolled:
+                    obj.studentsEnrolled=obj.studentsEnrolled.replace(approvedRoll+',','')
+                obj.save()
+                message='Student had been approved successfully'
+            else:
+                message="Roll Number is invalid or format is invalid"
+        
+        if "disapprove" in request.POST:
+            disApprovedRoll = request.POST['studentRoll']
+            if rolMatch.match(disApprovedRoll):
+                if disApprovedRoll in obj.studentsApproved:
+                    obj.studentsApproved = obj.studentsApproved.replace(disApprovedRoll+',','')
+                    message = "Student has been disapproved successfully"
+                else:
+                    message="Roll Number is invalid or format is invalid"
 
     tempUser = (User.objects.filter(id=obj.user_id))
     context = {

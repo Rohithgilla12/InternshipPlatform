@@ -3,7 +3,7 @@
 {% block content %}
 <br>
 <br>
-
+    {% if request.user.groups.all.0.name == "Students" %} 
     <div class="row">        
         {% if message == "Done!" %}
             <h4 style="color:#26ae60">{{message}}, Enrollment is successful</h4>        
@@ -15,7 +15,16 @@
         {% if appliedInterns != "" %}
         <p style="color:#B83227">You are currently enrolled in the following internship(s): {{appliedInterns}} </p>
         {% endif %}
-    </div>
+    </div>    
+    {% else %}
+    {% endif %}
+
+    {% if request.user.groups.all.0.name == "Professor" %} 
+        <div class="row">
+            <h4 style="color:#26ae60">{{message}}</h4>
+        </div>
+    {% else %}
+    {% endif %}
 
 
     <div class="row">
@@ -34,7 +43,7 @@
         <p>Deadline : <strong>{{object.deadLine}}</strong></p>
         <p>Date Added : <strong>{{object.dateAdded}}</strong></p>
 
-                <h5>Faculty Incharge</h5>
+            <h5>Faculty Incharge</h5>
             <p><i class="tiny material-icons">contacts</i> Name: {{user.first_name}} {{user.last_name}}</p>
             <p><i class="tiny material-icons">email</i> Email : <a href="mailto:{{user.email}}?Subject=This  Mail is regarding%20{{object.title}}" target="_top">{{user.email}}</a></p>        
             <p><i class="tiny material-icons">location_on</i> Location : {{user.profile.location}}</p>
@@ -45,11 +54,29 @@
             {% if request.user.is_authenticated %}
                     {% if request.user.groups.all.0.name == "Students" %} 
                     <form action="#" method="post">{% csrf_token %}
-                        <input type="submit" class="applyBtn waves-effect waves-light btn" name= {{object.id}} value="Apply Now!">
+                        <input type="submit" class="applyBtn waves-effect waves-light btn" name= "apply" value="Apply Now!">
                     </form>                                               
                     {% endif %}
                     {% if request.user.groups.all.0.name == "Professor" %}
-                        <a class="waves-effect waves-light btn" href="{% url 'intern_edit' pk=object.id %}"><i class="material-icons right">border_color</i>  Edit</a>
+                    <form class="approveStudent" action="#" method="post">{% csrf_token %}                        
+                        <input type="text" class="input-field validate" name="studentRoll" type="text" id="studentId" label="Student: " placeholder="Student Roll Number">
+                        {% comment %} <label for="studentid">Student Roll Number</label> {% endcomment %}
+                        {% comment %} <input type="submit" class="approveBtn waves-effect waves-light btn" name= "approve" value="Approve Student"> {% endcomment %}
+                        <button class="btn waves-effect waves-light" type="submit" name= "approve" value="Approve Student">Approve
+                            <i class="material-icons right">check</i>
+                        </button>
+                    </form>                            
+                    
+                    <form class="approveStudent" action="#" method="post">{% csrf_token %}            
+                        <input type="text" class="input-field validate" name="studentRoll" type="text" id="studentIdDis" label="Student: " placeholder="Student Roll Number">
+                        {% comment %} <label for="studentid">Student Roll Number</label> {% endcomment %}
+                        <button class="btn waves-effect waves-light" type="submit" name= "disapprove" value="Disapprove Student">Disapprove
+                            <i class="material-icons right">close</i>
+                        </button>
+                        {% comment %} <input type="submit" class="approveBtn waves-effect waves-light btn" name= "disapprove" value="Disapprove Student"> {% endcomment %}
+                    </form>                            
+
+                        <a class="waves-effect waves-light btn" href="{% url 'intern_edit' pk=object.id %}"><i class="material-icons right">border_color</i>  Edit</a>                
                     {% endif %}
             {% endif %}
     </div>

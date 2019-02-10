@@ -128,4 +128,6 @@ MEDIA_URL= "/media/"
 INSTALLED_APPS += ['django_extensions']
 
 
+SESSION_COOKIE_AGE = 18000*2
+
 # python manage.py shell_plus --notebook
