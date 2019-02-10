@@ -33,3 +33,13 @@ urlpatterns = [
     path('profile', myInterns, name='myProfile'),
     path(r'interns/category/<catName>/',dispSpecific,name='specific')
 ]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+
+
+# user = User.objects.create_user('16XJ1A0540',password='Test1234')
+# user.first_name="Ram"
+# user.last_name="Manohar"
+# user.email="manohar160540@mechyd.ac.in"
+# user.groups.add(students)
+# user.profile.leisureTime="Peaks"
+# user.profile.location="Student"
+# user.save()

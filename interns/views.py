@@ -77,6 +77,7 @@ def intern_detail_view(request, *args,**kwargs):
 
 
 @login_required
+@group_required("Professor")
 def intern_edit(request, pk):
     inter = get_object_or_404(Intern, pk=pk)    
     if(request.user.id == inter.user_id):
@@ -180,11 +181,11 @@ def dispSpecific(request,*args,**kwargs):
 
 # from django.contrib.auth.models import Group
 # from django.contrib.auth.models import User
-# user = User.objects.create_user('foo',password='bar')
-# user.first_name="Fucked up"
-# user.last_name="Beyond Login"
-# user.email="foobar@gilmail.com"
+# user = User.objects.create_user('16XJ1A0540',password='Test1234')
+# user.first_name="Ram"
+# user.last_name="Manohar"
+# user.email="manohar160540@mechyd.ac.in"
 # user.groups.add(students)
 # user.profile.leisureTime="Peaks"
-# user.profile.location="Facult office"
+# user.profile.location="Student"
 # user.save()

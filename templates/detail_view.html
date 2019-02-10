@@ -12,7 +12,9 @@
         {% if message == "Repeated" %}
             <h4 style="color:#B83227">{{message}}, Enrollment is done already</h4>
         {% endif %}
-        <p style="color:#B83227">You are currently enrolled in the following {{appliedInterns}} internships</p>
+        {% if appliedInterns != "" %}
+        <p style="color:#B83227">You are currently enrolled in the following internship(s): {{appliedInterns}} </p>
+        {% endif %}
     </div>
 
 
