@@ -126,3 +126,6 @@ MEDIA_ROOT= os.path.join(BASE_DIR, 'media/')
 MEDIA_URL= "/media/"
 
 INSTALLED_APPS += ['django_extensions']
+
+
+# python manage.py shell_plus --notebook

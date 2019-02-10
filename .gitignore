@@ -97,3 +97,11 @@ faculty/
 Icons/
 
 *.zip
+
+*.json
+
+.ipynb_checkpoints/
+
+*.xlsx
+
+*.ipynb
