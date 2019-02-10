@@ -69,6 +69,7 @@ def intern_detail_view(request, *args,**kwargs):
                     internsApplied.append(intern.title)
         if "approve" in request.POST:
             approvedRoll = request.POST['studentRoll']
+            approvedRoll = approvedRoll.upper()
             if rolMatch.match(approvedRoll):
                 obj.studentsApproved +=str(approvedRoll)+','
                 print(approvedRoll,obj.studentsEnrolled, approvedRoll in obj.studentsEnrolled)
@@ -81,6 +82,7 @@ def intern_detail_view(request, *args,**kwargs):
         
         if "disapprove" in request.POST:
             disApprovedRoll = request.POST['studentRoll']
+            disApprovedRoll= disApprovedRoll.upper()
             if rolMatch.match(disApprovedRoll):
                 if disApprovedRoll in obj.studentsApproved:
                     obj.studentsApproved = obj.studentsApproved.replace(disApprovedRoll+',','')
