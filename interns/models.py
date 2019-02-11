@@ -44,6 +44,8 @@ class Profile(models.Model):
     location = models.CharField(max_length=100)
     leisureTime = models.CharField(max_length=100)
     profilePhoto=models.FileField(upload_to='images/', null=True, verbose_name="")
+    enrolledInternships = models.CharField(max_length=100,null =True)
+    acceptedInternships = models.CharField(max_length=100,null =True)
     
     def __str__(self):  # __unicode__ for Python 2
         return str(self.user)

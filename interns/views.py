@@ -61,6 +61,7 @@ def intern_detail_view(request, *args,**kwargs):
             if (str(request.user.username) not in obj.studentsEnrolled):
                 obj.studentsEnrolled+=str(request.user.username)+","
                 obj.save()
+                request.user.profile.enrolledInternships += str(obj.id)+','
                 message='Done!'        
             else:
                 message='Repeated'
@@ -172,12 +173,17 @@ def allStudList(request):
 @login_required
 def myInterns(request):
     pk=request.user.id
-    myInters=Intern.objects.all().filter(user_id=pk)
-    tempUser = (User.objects.filter(id=pk))[0]
-    fulName = tempUser.first_name + " "+tempUser.last_name
-    context={
-        "qset":myInters
-    }
+    if "XJ1A" in str(request.user):
+        context={
+            "qset":"Student"
+        }
+    else:
+        myInters=Intern.objects.all().filter(user_id=pk)
+        tempUser = (User.objects.filter(id=pk))[0]
+        fulName = tempUser.first_name + " "+tempUser.last_name
+        context={
+            "qset":myInters
+        }
     return render(request,'profile.html',context)
 
 def dispSpecific(request,*args,**kwargs):

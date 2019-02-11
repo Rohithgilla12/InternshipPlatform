@@ -4,7 +4,13 @@
 <div class="col-md-12">
 <input type="text" class="datepicker">
 {% comment %} {{qset}} {% endcomment %}
-{% if user.is_authenticated %}
+
+{% if request.user.groups.all.0.name == "Students" %} 
+  {{qset}}
+{% endif %}
+
+
+{% if request.user.groups.all.0.name == "Professor" %}
       {% comment %} {{user.profile.location}} is logged in {% endcomment %}
       <h5>Welcome <strong>{{user.first_name}} {{user.last_name}} <strong>, these are the list of interns provided by you</h5>
       <br>
@@ -31,7 +37,6 @@
     {% if forloop.last %} </div> {% endif %}
     {% endfor %}
     </div>  
-    {% else %}
-        <h3>You are not allowed to view this page qithout authentication, please login to view </h3>
-    {% endif %}
+  {% endif %}
+
 {% endblock %}
