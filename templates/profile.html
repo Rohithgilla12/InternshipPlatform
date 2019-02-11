@@ -6,8 +6,33 @@
 {% comment %} {{qset}} {% endcomment %}
 
 {% if request.user.groups.all.0.name == "Students" %} 
-  {{qset}}
-{% endif %}
+  <h5>Welcome <strong>{{user.first_name}} {{user.last_name}} <strong>, these are the list of interns applied by you</h5>
+        <br>
+    {{approvedInterns}}
+    <div style="background-color:#eee">
+    {% for intern in qset %}
+        {% if forloop.first %} <div class="row">{%endif%}
+        <div class="col s12">
+                  <div class="card">
+        <div class="card-content">
+          <span class="card-title"><a href="{% url 'intern_detail_view' pk=intern.id %}">{{ intern.title }}</a></span>
+          {% comment %} <p>{{intern.description|truncatewords:50}} </p> {% endcomment %}
+          <p style="color:#B83227">Deadline: <strong>{{intern.deadLine}}</strong></p>
+          <p>Duration : <strong>{{intern.duration}}</strong></p>
+          {% comment %} <p><strong>Date Added </strong>{{intern.dateAdded}}</p> {% endcomment %}
+          {% comment %} <p>Contact: <strong>{{intern.fullName}}</strong></p> {% endcomment %}
+        </div>
+        <div class="card-action">
+          <a href="{% url 'intern_detail_view' pk=intern.id %}">Know More</a>          
+        </div>
+      </div>
+      </div>    
+    {% if forloop.counter|divisibleby:1 %}</div>  <div class="row">{% endif %}  
+    {% if forloop.last %} </div> {% endif %}
+    {% endfor %}
+    </div>  
+  {% endif %}
+
 
 
 {% if request.user.groups.all.0.name == "Professor" %}

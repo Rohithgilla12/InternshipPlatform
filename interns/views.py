@@ -59,9 +59,13 @@ def intern_detail_view(request, *args,**kwargs):
     if request.method == 'POST':
         if "apply" in request.POST:
             if (str(request.user.username) not in obj.studentsEnrolled):
-                obj.studentsEnrolled+=str(request.user.username)+","
+                if obj.studentsEnrolled[-1]!=',':
+                    obj.studentsEnrolled+=','
+                try:
+                    obj.studentsEnrolled+=str(request.user.username)+","
+                except:
+                    obj.studentsEnrolled = str(request.user.username)
                 obj.save()
-                request.user.profile.enrolledInternships += str(obj.id)+','
                 message='Done!'        
             else:
                 message='Repeated'
@@ -90,13 +94,19 @@ def intern_detail_view(request, *args,**kwargs):
                     message = "Student has been disapproved successfully"
                 else:
                     message="Roll Number is invalid or format is invalid"
-
+    
+    enrolledKids=obj.studentsEnrolled.split(',')
+    enrollmentString=''
+    for kid in enrolledKids[:-1]:
+        myInters=Intern.objects.filter(studentsEnrolled__contains=kid)
+        enrollmentString+=kid+"("+str(len(myInters))+"),"
     tempUser = (User.objects.filter(id=obj.user_id))
     context = {
         "object": obj,
         "user":tempUser[0],
         "message":message,
-        "appliedInterns":','.join(internsApplied)
+        "appliedInterns":','.join(internsApplied),
+        "enrollmentString":enrollmentString
     }
     return render(request, "detail_view.html", context)
 
@@ -173,17 +183,19 @@ def allStudList(request):
 @login_required
 def myInterns(request):
     pk=request.user.id
-    if "XJ1A" in str(request.user):
-        context={
-            "qset":"Student"
-        }
+    if "XJ1A" in str(request.user.username):        
+        myInters=Intern.objects.filter(studentsEnrolled__contains=request.user.username)
+        approvedInterns = Intern.objects.filter(studentsApproved__contains=request.user.username)
     else:
         myInters=Intern.objects.all().filter(user_id=pk)
-        tempUser = (User.objects.filter(id=pk))[0]
-        fulName = tempUser.first_name + " "+tempUser.last_name
-        context={
-            "qset":myInters
-        }
+        approvedInterns=""
+    tempUser = (User.objects.filter(id=pk))[0]
+    fulName = tempUser.first_name + " "+tempUser.last_name
+    print(approvedInterns)
+    context={
+        "qset":myInters,
+        "approvedInters":approvedInterns
+    }
     return render(request,'profile.html',context)
 
 def dispSpecific(request,*args,**kwargs):
