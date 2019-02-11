@@ -1,7 +1,120 @@
 {% extends 'base.html' %}
 
 {% block content %}
-<div class="row">
+
+<div class="row" style="margin-top:20pt; margin-bottom:5pt">
+    <div class="col s12">
+        <a  id="SeeAll" style="width: 100%" class="waves-effect waves-light btn-large"><i class="material-icons right">send</i>View All</a>
+    </div>
+</div>   
+<div class="row" style="margin-top:20pt">
+    <div class="col s3">
+    <a class="waves-effect waves-light btn" id="CseBtn" style="width:100%">CSE</a>
+  </div>
+  <div class="col s3">
+    <a class="waves-effect waves-light btn" id="MechBtn" style="width:100%">MECH</a>
+  </div>
+  <div class="col s3">
+    <a class="waves-effect waves-light btn" id="CivilBtn" style="width:100%">CIVIL</a>
+  </div>
+  <div class="col s3">
+    <a class="waves-effect waves-light btn" id="EeeBtn" style="width:100%">EEE</a>
+  </div>
+
+</div>
+<div class="row" id="CseTable">
+  <div class="col s12">
+  <h4>CSE</h4>
+    <table>
+      <thead> 
+        <th>ID</th>
+        <th>Name</th>
+        <th>Enrolled Internships</th>
+        <th>Approved Internships</th>
+      </thead>
+      <tbody>
+          {% for student in CSE %}
+            <tr>
+                <td>{{student.username}}</td>
+                <td>{{student.first_name}} {{student.last_name}}</td>                
+                <td>{{student.profile.enrolledInternships}}</td> 
+                <td>{{student.profile.acceptedInternships}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row" id="CivilTable">
+  <div class="col s12">
+  <h4>CIVIL</h4>
+    <table>
+      <thead> 
+        <th>ID</th>
+        <th>Name</th>
+        <th>Enrolled Internships</th>
+        <th>Approved Internships</th>
+      </thead>
+      <tbody>
+          {% for student in CIVIL %}
+            <tr>
+                <td>{{student.username}}</td>
+                <td>{{student.first_name}} {{student.last_name}}</td>                
+                <td>{{student.profile.enrolledInternships}}</td> 
+                <td>{{student.profile.acceptedInternships}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row" id="EeeTable">
+  <div class="col s12">
+  <h4>EEE</h4>
+    <table>
+      <thead> 
+        <th>ID</th>
+        <th>Name</th>
+        <th>Enrolled Internships</th>
+        <th>Approved Internships</th>
+      </thead>
+      <tbody>
+          {% for student in EEE %}
+            <tr>
+                <td>{{student.username}}</td>
+                <td>{{student.first_name}} {{student.last_name}}</td>                
+                <td>{{student.profile.enrolledInternships}}</td> 
+                <td>{{student.profile.acceptedInternships}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+<div class="row" id="MechTable">
+  <div class="col s12">
+  <h4>Mech</h4>
+    <table>
+      <thead> 
+        <th>ID</th>
+        <th>Name</th>
+        <th>Enrolled Internships</th>
+        <th>Approved Internships</th>
+      </thead>
+      <tbody>
+          {% for student in MECH %}
+            <tr>
+                <td>{{student.username}}</td>
+                <td>{{student.first_name}} {{student.last_name}}</td>                
+                <td>{{student.profile.enrolledInternships}}</td> 
+                <td>{{student.profile.acceptedInternships}}</td>
+          </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  </div>
+</div>
+{% comment %} <div class="row">
     <div class="col s12">
             <h4>Students Enrolled</h4>
           <table id="enrollTable">
@@ -59,5 +172,5 @@
       </table>
 </div>
 </div>
-</div>
+</div> {% endcomment %}
 {% endblock %}

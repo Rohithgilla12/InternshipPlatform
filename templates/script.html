@@ -19,6 +19,47 @@
     $('.modal').modal();
   });
 
+  var CseTable = document.getElementById("CseTable");
+  var CivilTable = document.getElementById("CivilTable");
+  var EeeTable = document.getElementById("EeeTable");
+  var MechTable = document.getElementById("MechTable");
 
+  var CseBtn =document.getElementById("CseBtn")
+  var CivilBtn =document.getElementById("CivilBtn")
+  var EeeBtn =document.getElementById("EeeBtn")
+  var MechBtn =document.getElementById("MechBtn")
+  var SeeAll =document.getElementById("SeeAll")
+
+  SeeAll.onclick = function(){
+    CivilTable.style.display= "table";
+    EeeTable.style.display= "table";
+    MechTable.style.display= "table";
+    CseTable.style.display="table";  
+  }
+  
+  CseBtn.onclick = function(){
+    CivilTable.style.display= "none";
+    EeeTable.style.display= "none";
+    MechTable.style.display= "none";
+    CseTable.style.display="table";  
+  }
+  CivilBtn.onclick = function(){
+    CivilTable.style.display= "table";
+    EeeTable.style.display= "none";
+    MechTable.style.display= "none";
+    CseTable.style.display="none";
+  }
+  MechBtn.onclick = function(){
+    CivilTable.style.display= "none";
+    EeeTable.style.display= "none";
+    MechTable.style.display= "table";
+    CseTable.style.display="none";
+  }
+  EeeBtn.onclick = function(){
+    CivilTable.style.display= "none";
+    EeeTable.style.display= "table";
+    MechTable.style.display= "none";
+    CseTable.style.display="none";
+  }
         
   </script>

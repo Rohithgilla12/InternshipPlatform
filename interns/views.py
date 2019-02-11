@@ -131,52 +131,28 @@ def intern_edit(request, pk):
 
 @login_required
 def allStudList(request):
-    studentsEnrolled= Intern.objects.all().values('id','title','studentsEnrolled')
-    studentsApproved= Intern.objects.all().values('id','title','studentsApproved')      
-    for obj in studentsEnrolled:
-        reqString = obj['studentsEnrolled']        
-        reqList = reqString.split(',')
-        names=''
-        branches=''
-        years=''
-        print(reqList)
-        for name in reqList:
-            try:            
-                names+=search2(name)[0]+', '
-                branches+=search2(name)[2]+', '
-                years+=search2(name)[1]+', '
-            except:
-                pass
-        print(names)
-        obj.update({
-            "retrivedName":names[:-2],
-            "branches": branches[:-2],
-            "years":years[:-2]
-        })
-
-    for obj in studentsApproved:
-        reqString = obj['studentsApproved']
-        reqList = reqString.split(',')
-        names=''
-        years=''
-        branches=''
-        for name in reqList:            
-            try:            
-                years+=search2(name)[1]+', '
-                names+=search2(name)[0]+', '
-                branches+=search2(name)[2]+', '
-                # years+=search2(name)[1]+', '
-                
-            except:
-                pass        
-        obj.update({
-            "retrivedName":names[:-2],
-            "branches": branches[:-2],
-            "years":years[:-2]
-        })
+    CseStudents=User.objects.filter(username__contains="16XJ1A05")
+    EeeStudents=User.objects.filter(username__contains="16XJ1A02")
+    MechStudents=User.objects.filter(username__contains="16XJ1A03")
+    CivilStudents=User.objects.filter(username__contains="16XJ1A01")
+    for kid in CseStudents:
+        kidInterns = Intern.objects.filter(studentsEnrolled__contains=kid.username)
+        kidSelected=Intern.objects.filter(studentsApproved__contains=kid.username)
+        for eachIntern in kidInterns:
+            if kid.profile.enrolledInternships is None:
+                kid.profile.enrolledInternships = eachIntern.title+','
+            else:
+                kid.profile.enrolledInternships += eachIntern.title+','
+        for eachIntern in kidSelected:
+            if kid.profile.acceptedInternships is None:
+                kid.profile.acceptedInternships = eachIntern.title+','
+            else:
+                kid.profile.acceptedInternships += eachIntern.title+','
     context = {
-        "studentsEnrolled":studentsEnrolled,
-        "studentsApproved":studentsApproved
+        "CSE":CseStudents,
+        "MECH":MechStudents,
+        "EEE":EeeStudents,
+        "CIVIL":CivilStudents
     }
     return render(request,'studlist.html',context)
 
