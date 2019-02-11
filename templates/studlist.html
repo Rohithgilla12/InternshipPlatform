@@ -25,7 +25,7 @@
 <div class="row" id="CseTable">
   <div class="col s12">
   <h4>CSE</h4>
-    <table>
+    <table class="highlight">
       <thead> 
         <th>ID</th>
         <th>Name</th>
@@ -48,7 +48,7 @@
 <div class="row" id="CivilTable">
   <div class="col s12">
   <h4>CIVIL</h4>
-    <table>
+    <table class="highlight">
       <thead> 
         <th>ID</th>
         <th>Name</th>
@@ -71,7 +71,7 @@
 <div class="row" id="EeeTable">
   <div class="col s12">
   <h4>EEE</h4>
-    <table>
+    <table class="highlight">
       <thead> 
         <th>ID</th>
         <th>Name</th>
@@ -94,7 +94,7 @@
 <div class="row" id="MechTable">
   <div class="col s12">
   <h4>Mech</h4>
-    <table>
+    <table class="highlight">
       <thead> 
         <th>ID</th>
         <th>Name</th>
@@ -114,63 +114,4 @@
     </table>
   </div>
 </div>
-{% comment %} <div class="row">
-    <div class="col s12">
-            <h4>Students Enrolled</h4>
-          <table id="enrollTable">
-        <thead>
-          <tr>
-              <th>ID</th>
-              <th>Students</th>
-              <th>Branches</th>
-              <th>Years</th>              
-              <th>Title</th>
-          </tr>
-        </thead>
-
-        <tbody>
-        {% for student in studentsEnrolled %}
-            <tr>
-                <td>{{student.id}}</td>
-                <td>{{student.retrivedName}}</td>
-                <th>{{student.branches}}</th>
-                <th>{{student.years}}</th>
-                <td>{{student.title}}</td>                
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-    </div>
-</div>
-</div>
-<div class="container">
-<div class="row">
-<div class="col s12">
-        <h4>Students Approved</h4>
-          <table id="approvedTable">
-        <thead>
-          <tr>
-              <th>ID</th>
-              <th>Students</th>
-              <th>Branches</th>
-              <th>Years</th>              
-              <th>Title</th>
-          </tr>
-        </thead>
-
-        <tbody>
-        {% for student in studentsApproved %}
-            <tr>
-                <td>{{student.id}}</td>
-                <td>{{student.retrivedName}}</td>
-                <th>{{student.branches}}</th>
-                <th>{{student.years}}</th>
-                <td>{{student.title}}</td>                
-          </tr>
-        {% endfor %}
-        </tbody>
-      </table>
-</div>
-</div>
-</div> {% endcomment %}
 {% endblock %}
