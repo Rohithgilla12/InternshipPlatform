@@ -60,10 +60,26 @@
 
 
 {% if request.user.groups.all.0.name == "Professor" %}
-      {% comment %} {{user.profile.location}} is logged in {% endcomment %}
       <h5>Welcome <strong>{{user.first_name}} {{user.last_name}} <strong>, these are the list of interns provided by you</h5>
       <br>
-    
+    <div class="row">
+      <h6>Personal Details</h6>
+      <p>Current Details are <strong>Location: </strong>{{user.profile.location}}, <strong>Leisure Time:</strong> {{user.profile.leisureTime}}</p>
+      <form action="#" method="post">{% csrf_token %}                        
+            <input type="text" class="input-field validate" name="details" type="text" id="locationId" label="Location " placeholder="Location">            
+            <button class="btn waves-effect waves-light" type="submit" name= "location" value="Approve Student">Change
+                <i class="material-icons right">check</i>
+            </button>        
+      </form>
+
+      <form action="#" method="post">{% csrf_token %}                                    
+            <input type="text" class="input-field validate" name="timeDetail" type="text" id="timeId" label="Time" placeholder="Preferred Meeting Time">
+            <button class="btn waves-effect waves-light" type="submit" name= "time" value="Approve Student">Change
+                <i class="material-icons right">check</i>
+            </button>        
+      </form>
+    </div>
+
     <div style="background-color:#eee">
     {% for intern in qset %}
         {% if forloop.first %} <div class="row">{%endif%}

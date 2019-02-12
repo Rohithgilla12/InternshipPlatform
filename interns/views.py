@@ -117,8 +117,7 @@ def intern_detail_view(request, *args,**kwargs):
 
 @login_required
 def intern_edit(request, pk):
-    inter = get_object_or_404(Intern, pk=pk)  
-    print("Came")  
+    inter = get_object_or_404(Intern, pk=pk)       
     if(request.user.id == inter.user_id):
         if request.method == "POST":
             form = InternForm(request.POST, instance=inter)
@@ -200,7 +199,7 @@ def allStudList(request):
     return render(request,'studlist.html',context)
 
 @login_required
-def myInterns(request):
+def myInterns(request):    
     pk=request.user.id
     if "XJ1A" in str(request.user.username):        
         myInters=Intern.objects.filter(studentsEnrolled__contains=request.user.username)
@@ -210,7 +209,23 @@ def myInterns(request):
         approvedInterns=""
     tempUser = (User.objects.filter(id=pk))[0]
     fulName = tempUser.first_name + " "+tempUser.last_name
-    print(approvedInterns)
+    if(request.method=="POST"):
+        if "location" in request.POST:
+            # location=request.POST['details']        
+            location=request.POST['details']
+            # print(request.POST['details'])
+            if location is None or location =='':
+                pass
+            else:
+                tempUser.profile.location=location
+        
+        if "time" in request.POST:
+            location=request.POST['timeDetail']                  
+            if location is None or location =='':
+                pass
+            else:
+                tempUser.profile.leisureTime= location        
+        tempUser.save()
     context={
         "qset":myInters,
         "approvedInters":approvedInterns
