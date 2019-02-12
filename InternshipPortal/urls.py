@@ -32,7 +32,7 @@ urlpatterns = [
     path('students', allStudList, name='allStud'),
     path('profile', myInterns, name='myProfile'),
     path(r'interns/category/<catName>/',dispSpecific,name='specific')
-]+ static(settings.MEDIA_URL, document_root= settings.MEDIA_ROOT)
+]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
 # user = User.objects.create_user('16XJ1A0540',password='Test1234')
