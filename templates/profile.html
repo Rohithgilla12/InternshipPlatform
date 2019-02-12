@@ -60,7 +60,7 @@
 
 
 {% if request.user.groups.all.0.name == "Professor" %}
-      <h5>Welcome <strong>{{user.first_name}} {{user.last_name}} <strong>, these are the list of interns provided by you</h5>
+      <h5>Welcome <strong>{{user.first_name}} {{user.last_name}} <strong></h5>
       <br>
     <div class="row">
       <h6>Personal Details</h6>
@@ -80,6 +80,7 @@
       </form>
     </div>
 
+    <h5>These are the list of interns provided by you</h5>
     <div style="background-color:#eee">
     {% for intern in qset %}
         {% if forloop.first %} <div class="row">{%endif%}

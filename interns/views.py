@@ -49,8 +49,7 @@ def create(request):
     return render(request,'create.html',{'form':form})
 
 
-def intern_detail_view(request, *args,**kwargs):
-    print("Came") 
+def intern_detail_view(request, *args,**kwargs): 
     pk=kwargs['pk']
     message=""
     obj = Intern.objects.get(id=pk)  # GET from database  
@@ -79,15 +78,23 @@ def intern_detail_view(request, *args,**kwargs):
         if "approve" in request.POST:
             approvedRoll = request.POST['studentRoll']
             approvedRoll = approvedRoll.upper()
+            approvedKid = User.objects.filter(username__contains=approvedRoll)
             if rolMatch.match(approvedRoll):
-                obj.studentsApproved +=str(approvedRoll)+','
-                print(approvedRoll,obj.studentsEnrolled, approvedRoll in obj.studentsEnrolled)
-                if approvedRoll in obj.studentsEnrolled:
-                    obj.studentsEnrolled=obj.studentsEnrolled.replace(approvedRoll+',','')
-                obj.save()
-                message='Student had been approved successfully'
+                print("Came")
+                tempQuery=Intern.objects.filter(studentsApproved__contains=approvedRoll)
+                print(tempQuery)
+                if (len(tempQuery) ==0):
+                    obj.studentsApproved +=str(approvedRoll)+','
+                    print(approvedRoll,obj.studentsEnrolled, approvedRoll in obj.studentsEnrolled)
+                    if approvedRoll in obj.studentsEnrolled:
+                        obj.studentsEnrolled=obj.studentsEnrolled.replace(approvedRoll+',','')
+                    obj.save()
+                    message='Student had been approved to the internship successfully'
+                else:
+                    message="Student already got approved in another internship"
             else:
                 message="Roll Number is invalid or format is invalid"
+
         
         if "disapprove" in request.POST:
             disApprovedRoll = request.POST['studentRoll']
