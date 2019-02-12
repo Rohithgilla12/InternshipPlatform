@@ -50,6 +50,7 @@ def create(request):
 
 
 def intern_detail_view(request, *args,**kwargs):
+    print("Came") 
     pk=kwargs['pk']
     message=""
     obj = Intern.objects.get(id=pk)  # GET from database  
@@ -59,8 +60,11 @@ def intern_detail_view(request, *args,**kwargs):
     if request.method == 'POST':
         if "apply" in request.POST:
             if (str(request.user.username) not in obj.studentsEnrolled):
-                if obj.studentsEnrolled[-1]!=',':
-                    obj.studentsEnrolled+=','
+                try:
+                    if obj.studentsEnrolled[-1]!=',':
+                        obj.studentsEnrolled+=','
+                except:
+                    pass
                 try:
                     obj.studentsEnrolled+=str(request.user.username)+","
                 except:
@@ -112,9 +116,9 @@ def intern_detail_view(request, *args,**kwargs):
 
 
 @login_required
-@group_required("Professor")
 def intern_edit(request, pk):
-    inter = get_object_or_404(Intern, pk=pk)    
+    inter = get_object_or_404(Intern, pk=pk)  
+    print("Came")  
     if(request.user.id == inter.user_id):
         if request.method == "POST":
             form = InternForm(request.POST, instance=inter)

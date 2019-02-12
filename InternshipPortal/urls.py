@@ -15,23 +15,23 @@ Including another URLconf
 """
 from django.contrib import admin
 from django.conf.urls import url
-from django.urls import path
+# from django.urls import path
 from interns.views import *
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
 
 urlpatterns = [
-    path('admin/', admin.site.urls),
+    url('admin/', admin.site.urls),
     url(r'^$', home,name="home"),
     url(r'^login/$', auth_views.login, {'template_name': 'login.html'},name='login'),
     url(r'^logout/$', auth_views.logout, {'next_page': '/'}, name='logout'),
     url(r'^create/$', create, name='create'),
-    path('interns/<int:pk>/', intern_detail_view, name='intern_detail_view'),
-    path('interns/<int:pk>/edit/', intern_edit, name='intern_edit'),
-    path('students', allStudList, name='allStud'),
-    path('profile', myInterns, name='myProfile'),
-    path(r'interns/category/<catName>/',dispSpecific,name='specific')
+    url(r'interns/(?P<pk>\d{0,50})/$', intern_detail_view, name='intern_detail_view'),
+    url(r'interns/(?P<pk>\d+)/edit/$', intern_edit, name='intern_edit'),
+    url('students', allStudList, name='allStud'),
+    url('profile', myInterns, name='myProfile'),
+    url('interns/category/(?P<catName>\w{0,50})/',dispSpecific,name='specific')
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
 
