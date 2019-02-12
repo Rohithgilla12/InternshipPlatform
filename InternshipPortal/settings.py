@@ -131,3 +131,6 @@ INSTALLED_APPS += ['django_extensions']
 SESSION_COOKIE_AGE = 18000*2
 
 # python manage.py shell_plus --notebook
+
+STATIC_ROOT = os.path.join(BASE_DIR, 'static')
+STATIC_URL = '/static/'
