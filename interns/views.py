@@ -148,6 +148,45 @@ def allStudList(request):
                 kid.profile.acceptedInternships = eachIntern.title+','
             else:
                 kid.profile.acceptedInternships += eachIntern.title+','
+    for kid in MechStudents:
+        kidInterns = Intern.objects.filter(studentsEnrolled__contains=kid.username)
+        kidSelected=Intern.objects.filter(studentsApproved__contains=kid.username)
+        for eachIntern in kidInterns:
+            if kid.profile.enrolledInternships is None:
+                kid.profile.enrolledInternships = eachIntern.title+','
+            else:
+                kid.profile.enrolledInternships += eachIntern.title+','
+        for eachIntern in kidSelected:
+            if kid.profile.acceptedInternships is None:
+                kid.profile.acceptedInternships = eachIntern.title+','
+            else:
+                kid.profile.acceptedInternships += eachIntern.title+','
+    for kid in EeeStudents:
+        kidInterns = Intern.objects.filter(studentsEnrolled__contains=kid.username)
+        kidSelected=Intern.objects.filter(studentsApproved__contains=kid.username)
+        for eachIntern in kidInterns:
+            if kid.profile.enrolledInternships is None:
+                kid.profile.enrolledInternships = eachIntern.title+','
+            else:
+                kid.profile.enrolledInternships += eachIntern.title+','
+        for eachIntern in kidSelected:
+            if kid.profile.acceptedInternships is None:
+                kid.profile.acceptedInternships = eachIntern.title+','
+            else:
+                kid.profile.acceptedInternships += eachIntern.title+','
+    for kid in CivilStudents:
+        kidInterns = Intern.objects.filter(studentsEnrolled__contains=kid.username)
+        kidSelected=Intern.objects.filter(studentsApproved__contains=kid.username)
+        for eachIntern in kidInterns:
+            if kid.profile.enrolledInternships is None:
+                kid.profile.enrolledInternships = eachIntern.title+','
+            else:
+                kid.profile.enrolledInternships += eachIntern.title+','
+        for eachIntern in kidSelected:
+            if kid.profile.acceptedInternships is None:
+                kid.profile.acceptedInternships = eachIntern.title+','
+            else:
+                kid.profile.acceptedInternships += eachIntern.title+','
     context = {
         "CSE":CseStudents,
         "MECH":MechStudents,
