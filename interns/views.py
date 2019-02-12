@@ -74,42 +74,50 @@ def intern_detail_view(request, *args,**kwargs):
                 message='Repeated'
             for intern in allInterns:
                 if(userNumber in intern.studentsEnrolled): 
-                    internsApplied.append(intern.title)
-        if(request.user.id == obj.user_id):
-            if "approve" in request.POST:
-                
-                approvedRoll = request.POST['studentRoll']
-                approvedRoll = approvedRoll.upper()
-                approvedKid = User.objects.filter(username__contains=approvedRoll)[0]            
-                if rolMatch.match(approvedRoll):
-                    print("Came")
-                    tempQuery=Intern.objects.filter(studentsApproved__contains=approvedRoll)
-                    print(tempQuery)
-                    if (len(tempQuery) ==0):
-                        obj.studentsApproved +=str(approvedRoll)+','
-                        print(approvedRoll,obj.studentsEnrolled, approvedRoll in obj.studentsEnrolled)
-                        if approvedRoll in obj.studentsEnrolled:
-                            obj.studentsEnrolled=obj.studentsEnrolled.replace(approvedRoll+',','')
-                        obj.save()
-                        message='Student had been approved to the internship successfully'
-                    else:
-                        message="Student already got approved in another internship"
+                    internsApplied.append(intern.title)        
+        if "withdraw" in request.POST:            
+            disApprovedRoll = request.user.username 
+            disApprovedRoll= disApprovedRoll.upper()
+            if rolMatch.match(disApprovedRoll):
+                if disApprovedRoll in obj.studentsEnrolled:
+                    obj.studentsEnrolled = obj.studentsEnrolled.replace(disApprovedRoll+',','')
+                    message = "You have withdrawn successfully"
                 else:
                     message="Roll Number is invalid or format is invalid"
-
-            
-            if "disapprove" in request.POST:
-                disApprovedRoll = request.POST['studentRoll']
-                disApprovedRoll= disApprovedRoll.upper()
-                if rolMatch.match(disApprovedRoll):
-                    if disApprovedRoll in obj.studentsApproved:
-                        obj.studentsApproved = obj.studentsApproved.replace(disApprovedRoll+',','')
-                        message = "Student has been disapproved successfully"
+        if("approve" in request.POST or "disapprove" in request.POST):
+            if(request.user.id == obj.user_id):
+                if "approve" in request.POST:
+                    approvedRoll = request.POST['studentRoll']
+                    approvedRoll = approvedRoll.upper()
+                    approvedKid = User.objects.filter(username__contains=approvedRoll)[0]            
+                    if rolMatch.match(approvedRoll):
+                        print("Came")
+                        tempQuery=Intern.objects.filter(studentsApproved__contains=approvedRoll)
+                        print(tempQuery)
+                        if (len(tempQuery) ==0):
+                            obj.studentsApproved +=str(approvedRoll)+','
+                            print(approvedRoll,obj.studentsEnrolled, approvedRoll in obj.studentsEnrolled)
+                            if approvedRoll in obj.studentsEnrolled:
+                                obj.studentsEnrolled=obj.studentsEnrolled.replace(approvedRoll+',','')
+                            obj.save()
+                            message='Student had been approved to the internship successfully'
+                        else:
+                            message="Student already got approved in another internship"
                     else:
                         message="Roll Number is invalid or format is invalid"
 
-        else:
-            return render(request,'forbidden.html',{})
+                
+                if "disapprove" in request.POST:
+                    disApprovedRoll = request.POST['studentRoll']
+                    disApprovedRoll= disApprovedRoll.upper()
+                    if rolMatch.match(disApprovedRoll):
+                        if disApprovedRoll in obj.studentsApproved:
+                            obj.studentsApproved = obj.studentsApproved.replace(disApprovedRoll+',','')
+                            message = "Student has been disapproved successfully"
+                        else:
+                            message="Roll Number is invalid or format is invalid"            
+            else:
+                return render(request,'forbidden.html',{})
     enrolledKids=obj.studentsEnrolled.split(',')
     enrollmentString=''
     for kid in enrolledKids[:-1]:
