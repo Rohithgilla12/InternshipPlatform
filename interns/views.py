@@ -10,9 +10,7 @@ import re
 from .temp import *
 from django.shortcuts import render_to_response
 from django.template import RequestContext
-
-
-
+from django.core.files.storage import FileSystemStorage
 
 
 # Create your views here.
@@ -232,8 +230,28 @@ def allStudList(request):
     return render(request,'studlist.html',context)
 
 @login_required
-def myInterns(request):    
+def myInterns(request): 
     pk=request.user.id
+    # if request.method == 'POST' and request.FILES['myfile']:
+    #      kid = (User.objects.filter(id=pk))[0]
+    #      print(kid)
+    #      myfile = request.FILES['myfile']
+    #      kid.profilePhoto = myfile
+    #      kid.save()
+    #      fs = FileSystemStorage()
+    #      filename = fs.save(myfile.name, myfile)
+    #      uploaded_file_url = fs.url(filename)
+    #      print(uploaded_file_url)
+    if request.method == 'POST':
+        form = CvForm(request.POST, request.FILES)
+        if (form.is_valid()):
+            print(type(form.cleaned_data["profilePhoto"]))
+            tempUser = (User.objects.filter(id=request.user.id))[0]
+            tempUser.profile.profilePhoto = form.cleaned_data["profilePhoto"]
+            tempUser.save()
+    else:
+        form = CvForm()
+        
     if "XJ1A" in str(request.user.username):        
         myInters=Intern.objects.filter(studentsEnrolled__contains=request.user.username)
         approvedInterns = Intern.objects.filter(studentsApproved__contains=request.user.username)
@@ -261,7 +279,8 @@ def myInterns(request):
         tempUser.save()
     context={
         "qset":myInters,
-        "approvedInters":approvedInterns
+        "approvedInters":approvedInterns,
+        "form":form
     }
     return render(request,'profile.html',context)
 

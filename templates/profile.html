@@ -6,12 +6,26 @@
 {% comment %} {{qset}} {% endcomment %}
     
 {% if request.user.groups.all.0.name == "Students" %} 
-  <h5>Welcome <strong>{{user.first_name}} {{user.last_name}} <strong>, these are the list of interns applied by you</h5>
-        <br>
-
+  <h5>Welcome <strong>{{user.first_name}} {{user.last_name}} <strong></h5> 
+  <h5><strong>Please upload your CV here! (Ignore if already uploaded)</strong></h5>      
+    <form method="post" enctype="multipart/form-data">  
+    {% csrf_token %}
+    <div class="file-path-wrapper">
+      {{ form.as_p }}
+    </div> 
+    <button class="btn waves-effect waves-light" type="submit" name="action">Upload
+    <i class="material-icons right">cloud_upload</i>
+  </button>
+  </form>
+  <h6>If you want to change CV again, please re-upload it!</h6>
+  {% comment %} {% if uploaded_file_url %}
+    <p>File uploaded at: <a href="{{ uploaded_file_url }}">{{ uploaded_file_url }}</a></p>
+  {% endif %} {% endcomment %}
     <div style="background-color:#eee">
     {% for intern in qset %}
-        {% if forloop.first %} <div class="row">{%endif%}
+        {% if forloop.first %}
+        <h5>These are the list of internships applied by you</h5>      
+         <div class="row">{%endif%}
         <div class="col s12">
                   <div class="card">
         <div class="card-content">

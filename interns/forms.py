@@ -103,3 +103,22 @@ class InternForm(forms.ModelForm):
     class Meta:
         model = Intern
         fields = ("title","discipline","preReq","description","place","deadLine","duration","studentsApproved","studentsEnrolled","eligibility","stiphend")
+
+
+class CvForm(forms.ModelForm):
+    profilePhoto = forms.FileField(widget = forms.FileInput(
+        attrs={
+            'class':"file-path",
+            'placeholder ': "Upload multiple files",
+            "accept":".pdf,.docx"
+        }
+    ),
+        label='Upload CV'
+    )
+    class Meta:
+        model = Profile
+        fields = ('profilePhoto',)
+class UserForm(forms.ModelForm):
+    class Meta:
+        model = User
+        fields = ('first_name',)
