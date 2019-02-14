@@ -8,10 +8,23 @@ from django.contrib.auth.decorators import login_required
 from django.contrib.auth.decorators import user_passes_test
 import re
 from .temp import *
+from django.shortcuts import render_to_response
+from django.template import RequestContext
+
+
+
+
 
 # Create your views here.
 
 rolMatch=re.compile(r'[15,16,17,18]+[XJ,xj,Xj,xJ]+1A0[1-3,5][0-9][0-9]')
+
+
+def handlers404(request):
+    return render(request, '404.html', {})
+def handlers500(request):
+    return render(request, '500.html', {})
+
 
 def group_required(*group_names):
    def in_groups(u):
@@ -81,6 +94,7 @@ def intern_detail_view(request, *args,**kwargs):
             if rolMatch.match(disApprovedRoll):
                 if disApprovedRoll in obj.studentsEnrolled:
                     obj.studentsEnrolled = obj.studentsEnrolled.replace(disApprovedRoll+',','')
+                    obj.save()
                     message = "You have withdrawn successfully"
                 else:
                     message="Roll Number is invalid or format is invalid"
@@ -254,11 +268,13 @@ def myInterns(request):
 def dispSpecific(request,*args,**kwargs):
     catName=kwargs["catName"]
     if catName=="all":
-        objects=Intern.objects.all()
+        objects=Intern.objects.all().order_by('-deadLine')
+        catName="All Internships"
     else:
         objects=Intern.objects.all().filter(discipline=catName)
     context={
-        "obj":objects
+        "obj":objects,
+        "name":catName
     }
     return render(request,'specific.html',context)
 

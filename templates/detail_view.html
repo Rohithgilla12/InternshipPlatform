@@ -53,10 +53,10 @@
 
             {% if request.user.is_authenticated %}
                     {% if request.user.groups.all.0.name == "Students" %} 
-                    <form action="#" method="post">{% csrf_token %}
+                    <form class="approveStudent" action="#" method="post">{% csrf_token %}
                         <input type="submit" class="applyBtn waves-effect waves-light btn" name= "apply" value="Apply Now!">
-                    </form>                                               
-                    <form action="#" method="post">{% csrf_token %}
+                    </form>                                     
+                    <form class="approveStudent" action="#" method="post">{% csrf_token %}
                         <input type="submit" class="applyBtn waves-effect waves-light btn" name= "withdraw" value="withdraw">
                     </form>                                               
                     {% endif %}

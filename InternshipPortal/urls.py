@@ -20,6 +20,8 @@ from interns.views import *
 from django.contrib.auth import views as auth_views
 from django.conf import settings
 from django.conf.urls.static import static
+from django.conf.urls import handler404, handler500
+
 
 urlpatterns = [
     url('admin/', admin.site.urls),
@@ -39,6 +41,10 @@ urlpatterns = [
     url(r'^reset/done/$', auth_views.password_reset_complete, name='password_reset_complete'),
 ]+ static(settings.STATIC_URL, document_root=settings.STATIC_ROOT)
 
+
+
+handler404 = handlers404
+handler500 = handlers500
 
 # user = User.objects.create_user('16XJ1A0540',password='Test1234')
 # user.first_name="Ram"
